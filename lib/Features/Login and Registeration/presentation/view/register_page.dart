@@ -1,9 +1,14 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:soo2_3edda/Features/Login%20and%20Registeration/presentation/view/widgets/custom_name_text_field.dart';
 import 'package:soo2_3edda/Features/Login%20and%20Registeration/presentation/view/widgets/custom_text_button.dart';
 import 'package:soo2_3edda/Features/Login%20and%20Registeration/presentation/view/widgets/custom_text_form_field.dart';
 import 'package:soo2_3edda/Features/Login%20and%20Registeration/presentation/view/widgets/gredient_text.dart';
 import 'package:soo2_3edda/core/constants.dart';
+import 'package:soo2_3edda/core/helper/show_custom_material_banner_successful.dart';
+import 'package:soo2_3edda/core/helper/show_custom_snack_bar_failure.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -12,8 +17,9 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   AutovalidateMode mode = AutovalidateMode.disabled;
+  String? Email;
+  String? Password;
 
   @override
   Widget build(BuildContext context) {
@@ -63,24 +69,24 @@ class _RegisterPageState extends State<RegisterPage> {
                         flex: 11,
                         child: CustomNameTextField(
                           hintText: 'First Name',
-                          validator: (String? value){
-                            if(value!.isEmpty){
+                          validator: (String? value) {
+                            if (value!.isEmpty) {
                               return 'please enter your first name';
-                            }else {
+                            } else {
                               return null;
                             }
                           },
-                        ) ,
+                        ),
                       ),
                       const Spacer(),
                       Expanded(
                         flex: 11,
                         child: CustomNameTextField(
                           hintText: 'Last Name',
-                          validator: (String? value){
-                            if(value!.isEmpty){
+                          validator: (String? value) {
+                            if (value!.isEmpty) {
                               return 'please enter your last name';
-                            }else {
+                            } else {
                               return null;
                             }
                           },
@@ -92,6 +98,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 18,
                   ),
                   CustomTextFormField(
+                    onChanged: (String? value) {
+                      Email = value;
+                    },
                     hintText: 'Email',
                     icon: Icons.phone,
                     obscureText: false,
@@ -112,6 +121,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 18,
                   ),
                   CustomTextFormField(
+                    onChanged: (String? value) {
+                      Password = value;
+                    },
                     hintText: 'Password',
                     icon: Icons.lock_outline,
                     obscureText: true,
@@ -133,11 +145,42 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   CustomTextButton(
                     text: 'Sign Up',
-                    onPressed: () {
+                    onPressed: () async {
                       if (formKey.currentState!.validate()) {
                         setState(() {
                           mode = AutovalidateMode.always;
                         });
+                      }
+                      try {
+                        final credential = await FirebaseAuth.instance
+                            .createUserWithEmailAndPassword(
+                          email: Email!,
+                          password: Password!,
+                        );
+                        showCustomMaterialBanner(
+                            context: context,
+                            title: 'Congratulations!',
+                            message:
+                                'Your account has been created successfully. Start exploring!');
+                        GoRouter.of(context).push('/HomePage');
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'weak-password') {
+                          customShowSnackBarFailure(
+                              context: context,
+                              title: 'Weak Password!',
+                              message:
+                                  'Your password is too weak. Please use at least 8 characters with letters, numbers, and symbols.',
+                              contentType: ContentType.failure);
+                        } else if (e.code == 'email-already-in-use') {
+                          customShowSnackBarFailure(
+                              context: context,
+                              contentType: ContentType.help,
+                              title: 'Email Already in Use',
+                              message:
+                                  'The email address is already registered. Please use a different email.');
+                        }
+                      } catch (e) {
+                        print(e);
                       }
                     },
                   ),
@@ -154,11 +197,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       TextButton(
                           style: TextButton.styleFrom(
-                            shape: RoundedRectangleBorder(),
+                            shape: const RoundedRectangleBorder(),
                           ),
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => RegisterPage()));
+                            GoRouter.of(context).pop();
                           },
                           child: const Text(
                             'Sign In',

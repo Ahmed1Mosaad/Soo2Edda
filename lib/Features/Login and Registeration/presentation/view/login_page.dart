@@ -1,9 +1,16 @@
+import 'dart:io';
+
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:soo2_3edda/Features/Login%20and%20Registeration/presentation/view/register_page.dart';
 import 'package:soo2_3edda/Features/Login%20and%20Registeration/presentation/view/widgets/custom_text_button.dart';
 import 'package:soo2_3edda/Features/Login%20and%20Registeration/presentation/view/widgets/custom_text_form_field.dart';
 import 'package:soo2_3edda/Features/Login%20and%20Registeration/presentation/view/widgets/gredient_text.dart';
 import 'package:soo2_3edda/core/constants.dart';
+import 'package:soo2_3edda/core/helper/show_custom_material_banner_successful.dart';
+import 'package:soo2_3edda/core/helper/show_custom_snack_bar_failure.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -12,7 +19,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
+  String? Email;
+  String? Password;
   AutovalidateMode mode = AutovalidateMode.disabled;
 
   @override
@@ -56,6 +64,9 @@ class _LoginPageState extends State<LoginPage> {
                   height: 35,
                 ),
                 CustomTextFormField(
+                  onChanged: (String? value) {
+                    Email = value;
+                  },
                   hintText: 'Email',
                   icon: Icons.phone,
                   obscureText: false,
@@ -76,6 +87,9 @@ class _LoginPageState extends State<LoginPage> {
                   height: 18,
                 ),
                 CustomTextFormField(
+                  onChanged: (String? value) {
+                    Password = value;
+                  },
                   hintText: 'Password',
                   icon: Icons.lock_outline,
                   obscureText: true,
@@ -103,11 +117,35 @@ class _LoginPageState extends State<LoginPage> {
                   height: 15,
                 ),
                 CustomTextButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (formKey.currentState!.validate()) {
                       setState(() {
                         mode = AutovalidateMode.always;
                       });
+                    }
+                    try {
+                      final credential = await FirebaseAuth.instance
+                          .signInWithEmailAndPassword(
+                              email: Email!.trim(), password: Password!);
+                      showCustomMaterialBanner(
+                          context: context,
+                          title: 'Welcome Back!',
+                          message:
+                              "ou’ve successfully signed in. Enjoy exploring the app!");
+                      GoRouter.of(context).push('/HomePage');
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'user-not-found') {
+                        customShowSnackBarFailure(
+                            context: context,
+                            contentType: ContentType.success,
+                            title: 'user not found',
+                            message: 'No user found for that email.');
+                        print('No user found for that email.');
+                      } else if (e.code == 'wrong-password') {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Wrong password')));
+                        print('Wrong password provided for that user.');
+                      }
                     }
                   },
                   text: 'Sign In',
@@ -127,8 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                           shape: RoundedRectangleBorder(),
                         ),
                         onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => RegisterPage()));
+                          GoRouter.of(context).push('/RegisterPage');
                         },
                         child: const Text(
                           'Sign Up',

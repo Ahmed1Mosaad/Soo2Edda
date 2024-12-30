@@ -3,7 +3,7 @@ import 'package:soo2_3edda/core/constants.dart';
 
 class CustomTextFormField extends StatefulWidget {
   final IconData? icon;
-
+  void Function(String)? onChanged;
   final String hintText;
   String? Function(String?)? validator;
   bool obscureText;
@@ -12,6 +12,7 @@ class CustomTextFormField extends StatefulWidget {
     this.validator,
     required this.hintText,
     this.icon,
+    this.onChanged,
     required this.obscureText,
   });
 
@@ -23,7 +24,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      
+      onChanged: widget.onChanged,
       obscureText: widget.obscureText,
       validator: widget.validator,
       decoration: InputDecoration(
