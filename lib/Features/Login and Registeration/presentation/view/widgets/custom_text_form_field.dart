@@ -28,23 +28,20 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       obscureText: widget.obscureText,
       validator: widget.validator,
       decoration: InputDecoration(
-          suffixIcon: IconButton(
-              onPressed: () {
-                setState(() {
-                  if (widget.hintText == 'Password') {
-                    widget.obscureText = !widget.obscureText;
-                  }
-                });
-              },
-              icon: Icon(
-                widget.hintText == 'Password'
-                    ? widget.obscureText == false
-                        ? Icons.visibility
-                        : Icons.visibility_off
-                    : null,
-                color: grey,
-                size: 18,
-              )),
+          suffixIcon: widget.hintText == 'Password'
+              ? IconButton(
+                  onPressed: () {
+                    setState(() {
+                      if (widget.hintText == 'Password') {
+                        widget.obscureText = !widget.obscureText;
+                      }
+                    });
+                  },
+                  icon: widget.obscureText == false
+                      ? const Icon(Icons.visibility)
+                      : const Icon(Icons.visibility_off),
+                )
+              : null,
           fillColor: lightGrey,
           filled: true,
           contentPadding: const EdgeInsets.symmetric(
@@ -79,7 +76,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                     size: 20,
                   ),
                 )
-              :null,
+              : null,
           hintText: widget.hintText,
           hintStyle: const TextStyle(
               fontWeight: FontWeight.w400, color: grey, fontSize: 16)),

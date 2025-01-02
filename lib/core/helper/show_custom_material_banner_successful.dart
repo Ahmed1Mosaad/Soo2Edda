@@ -14,8 +14,8 @@ void showCustomMaterialBanner(
       color:const Color.fromARGB(255, 247, 197, 197),
       title: title,
       titleTextStyle: const TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.w400,
+        fontSize: 21,
+        fontWeight: FontWeight.bold,
         color: Color.fromARGB(255, 255, 162, 0),
       ),
       messageTextStyle: const TextStyle(
