@@ -1,17 +1,18 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
-class IconMenuButton extends StatefulWidget {
+class IconFilteringButton extends StatefulWidget {
   final Function()? onTap;
-  const IconMenuButton({
+  const IconFilteringButton({
     super.key,
     this.onTap,
   });
 
   @override
-  State<IconMenuButton> createState() => _IconMenuButtonState();
+  State<IconFilteringButton> createState() => _IconFilteringButtonState();
 }
 
-class _IconMenuButtonState extends State<IconMenuButton> {
+class _IconFilteringButtonState extends State<IconFilteringButton> {
   Color currentColor = Colors.white;
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,10 @@ class _IconMenuButtonState extends State<IconMenuButton> {
           currentColor = const Color(0xFFffffff);
         });
       },
-      onTap: widget.onTap,
+      onTap: () {
+        final player = AudioPlayer();
+        player.play(AssetSource('sounds/timkahn__tangel.wav'));
+      },
       child: Container(
         height: 50,
         width: 50,
@@ -46,15 +50,15 @@ class _IconMenuButtonState extends State<IconMenuButton> {
               ),
               Divider(
                 height: 9,
-                indent: 15,
-                endIndent: 21,
+                indent: 20,
+                endIndent: 20,
                 color: Color(0xFF6a6a6a),
                 thickness: 2.2,
               ),
               Divider(
                 height: 2,
-                indent: 15,
-                endIndent: 27,
+                indent: 23,
+                endIndent: 23,
                 color: Color(0xFF6a6a6a),
                 thickness: 2.2,
               ),
