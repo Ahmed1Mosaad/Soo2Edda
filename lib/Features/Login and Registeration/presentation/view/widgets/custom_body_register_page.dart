@@ -9,7 +9,7 @@ import 'package:soo2_3edda/Features/Login%20and%20Registeration/presentation/vie
 import 'package:soo2_3edda/Features/Login%20and%20Registeration/presentation/view/widgets/custom_title_app_name.dart';
 import 'package:soo2_3edda/core/helper/show_custom_material_banner_successful.dart';
 import 'package:soo2_3edda/core/helper/show_custom_snack_bar_failure.dart';
-import 'package:soo2_3edda/core/utils/check_internet_connection.dart';
+import 'package:soo2_3edda/core/Errors/check_internet_connection.dart';
 
 class CustomBodyRegisterPage extends StatefulWidget {
   const CustomBodyRegisterPage({super.key});

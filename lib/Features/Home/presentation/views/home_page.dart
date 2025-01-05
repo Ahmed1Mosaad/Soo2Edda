@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:soo2_3edda/core/constants.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:soo2_3edda/Features/Home/presentation/views/widgets/custom/custom_bottom_navigation_bar.dart';
 import 'package:soo2_3edda/Features/Home/presentation/views/widgets/custom_body_home_page.dart';
 
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
 
-class HomePage extends StatelessWidget {
+class _HomePageState extends State<HomePage> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  int _currentIndex = 0;
+  
+  void _onIconPressed(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +65,19 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: CustomBodyHomePage(scaffoldKey: scaffoldKey),
+      body: CustomBodyHomePage(scaffoldKey: scaffoldKey, selectedIndex: _currentIndex,),
+      bottomNavigationBar:
+          //  BottomNavigationBar(
+          //   items: const [
+          //     BottomNavigationBarItem(icon: Icon(Icons.home)),
+          //     BottomNavigationBarItem(icon: Icon(Icons.search)),
+          //     BottomNavigationBarItem(icon: Icon(Icons.card_travel)),
+          //     BottomNavigationBarItem(icon: Icon(Icons.favorite)),
+          //   ],
+          // )
+          CustomBottomNavigationBar(
+        onIconPresedCallback: _onIconPressed,
+      ),
     );
   }
 }

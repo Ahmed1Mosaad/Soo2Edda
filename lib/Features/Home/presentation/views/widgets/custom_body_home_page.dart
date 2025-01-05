@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soo2_3edda/Features/Home/presentation/views/widgets/card_item.dart';
 import 'package:soo2_3edda/Features/Home/presentation/views/widgets/custom_app_bar_home_page.dart';
 import 'package:soo2_3edda/Features/Home/presentation/views/widgets/custom_search_field.dart';
 import 'package:soo2_3edda/Features/Home/presentation/views/widgets/icon_filtering_button.dart';
@@ -8,7 +9,10 @@ import 'package:soo2_3edda/Features/Home/presentation/views/widgets/title_text_n
 import 'package:soo2_3edda/core/constants.dart';
 
 class CustomBodyHomePage extends StatefulWidget {
-  const CustomBodyHomePage({
+  List<Widget> screens = const [Text(''), Search(), Cart(), Favorite()];
+  int selectedIndex;
+  CustomBodyHomePage({
+    required this.selectedIndex,
     super.key,
     required this.scaffoldKey,
   });
@@ -20,6 +24,13 @@ class CustomBodyHomePage extends StatefulWidget {
 }
 
 class _CustomBodyHomePageState extends State<CustomBodyHomePage> {
+  final List<Widget> _pages = [
+    Center(child: Text('Home Page')),
+    Center(child: Text('Search Page')),
+    Center(child: Text('Cart Page')),
+    Center(child: Text('Favorites Page')),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -44,66 +55,99 @@ class _CustomBodyHomePageState extends State<CustomBodyHomePage> {
             const SizedBox(
               height: 38,
             ),
-            ListViewCategoryItem(
-              selectedItem: 0,
-            ),
-           SizedBox(height:MediaQuery.of(context).size.height * .04 ,),
-            Container(
-              width: MediaQuery.of(context).size.width * .53,
-              height: MediaQuery.of(context).size.height * .35,
-              child: const Card(
-                color: white,
-                child: Column(
-                  children: [
-                    IconHeart(),
-                    Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        Align(
-                          alignment: Alignment.center,
-                          child: CircleAvatar(
-                            radius: 47,
-                            backgroundColor: Color(0xFFfce5dd),
-                          ),
+            widget.selectedIndex == 0
+                ? Column(
+                    children: [
+                      ListViewCategoryItem(
+                        selectedItem: 0,
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * .04,
+                      ),
+                      SizedBox(
+                        height: 310,
+                        width: double.infinity,
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 5,
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(
+                              width: 20,
+                            );
+                          },
+                          itemBuilder: (context, index) {
+                            return const CardItem(
+                              image: 'assets/images/shooe_tilt.png',
+                            );
+                          },
                         ),
-                        Positioned(
-                          bottom: -37,
-                          left: 20,
-                          child: Image(
-                            image: AssetImage('assets/images/shooe_tilt.png'),
-                            width: 170,
-                            height: 170,
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      'Nike Air Max 200',
-                      style:
-                          TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
-                    ),
-                    Text(
-                      'Trending Now',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: orange,
-                          fontWeight: FontWeight.w700),
-                    ),
-                    Text(
-                      '240.0',
-                      style:
-                          TextStyle(fontWeight: FontWeight.w900, fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
-            )
+                      ),
+                    ],
+                  )
+                : widget.selectedIndex == 1
+                    ? widget.screens[1]
+                    : widget.selectedIndex == 2
+                        ? widget.screens[2]
+                        : widget.selectedIndex == 3
+                            ? widget.screens[3]
+                            : const Text(''),
           ],
         ),
       ),
+    );
+  }
+}
+
+class Search extends StatelessWidget {
+  const Search({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      children: [
+        Center(
+          child: Text(
+            'Search',
+            style: TextStyle(fontSize: 30),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class Cart extends StatelessWidget {
+  const Cart({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      children: [
+        Center(
+          child: Text(
+            'Cart',
+            style: TextStyle(fontSize: 30),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class Favorite extends StatelessWidget {
+  const Favorite({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      children: [
+        Center(
+          child: Text(
+            'Favorite',
+            style: TextStyle(fontSize: 30),
+          ),
+        ),
+      ],
     );
   }
 }
