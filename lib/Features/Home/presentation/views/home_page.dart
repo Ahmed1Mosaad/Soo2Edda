@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:soo2_3edda/core/constants.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:soo2_3edda/Features/Home/presentation/views/widgets/custom/custom_bottom_navigation_bar.dart';
+import 'package:soo2_3edda/Features/Home/presentation/views/widgets/Custom%20Bottom%20Navigation%20Bar/custom_bottom_navigation_bar.dart';
 import 'package:soo2_3edda/Features/Home/presentation/views/widgets/custom_body_home_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,7 +10,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   int _currentIndex = 0;
-  
+
   void _onIconPressed(int index) {
     setState(() {
       _currentIndex = index;
@@ -65,7 +63,10 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: CustomBodyHomePage(scaffoldKey: scaffoldKey, selectedIndex: _currentIndex,),
+      body: CustomBodyHomePage(
+        scaffoldKey: scaffoldKey,
+        selectedIndex: _currentIndex,
+      ),
       bottomNavigationBar:
           //  BottomNavigationBar(
           //   items: const [

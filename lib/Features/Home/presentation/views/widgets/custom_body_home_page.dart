@@ -3,10 +3,8 @@ import 'package:soo2_3edda/Features/Home/presentation/views/widgets/card_item.da
 import 'package:soo2_3edda/Features/Home/presentation/views/widgets/custom_app_bar_home_page.dart';
 import 'package:soo2_3edda/Features/Home/presentation/views/widgets/custom_search_field.dart';
 import 'package:soo2_3edda/Features/Home/presentation/views/widgets/icon_filtering_button.dart';
-import 'package:soo2_3edda/Features/Home/presentation/views/widgets/icon_heart.dart';
 import 'package:soo2_3edda/Features/Home/presentation/views/widgets/list_view_category_item.dart';
 import 'package:soo2_3edda/Features/Home/presentation/views/widgets/title_text_name.dart';
-import 'package:soo2_3edda/core/constants.dart';
 
 class CustomBodyHomePage extends StatefulWidget {
   List<Widget> screens = const [Text(''), Search(), Cart(), Favorite()];
@@ -24,13 +22,6 @@ class CustomBodyHomePage extends StatefulWidget {
 }
 
 class _CustomBodyHomePageState extends State<CustomBodyHomePage> {
-  final List<Widget> _pages = [
-    Center(child: Text('Home Page')),
-    Center(child: Text('Search Page')),
-    Center(child: Text('Cart Page')),
-    Center(child: Text('Favorites Page')),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -76,8 +67,9 @@ class _CustomBodyHomePageState extends State<CustomBodyHomePage> {
                             );
                           },
                           itemBuilder: (context, index) {
-                            return const CardItem(
+                            return CardItem(
                               image: 'assets/images/shooe_tilt.png',
+                              id: index,
                             );
                           },
                         ),
