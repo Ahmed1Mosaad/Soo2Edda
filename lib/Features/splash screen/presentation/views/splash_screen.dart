@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:soo2_3edda/Features/Home/presentation/views/home_page.dart';
 import 'package:soo2_3edda/Features/Login%20and%20Registeration/presentation/view/login_page.dart';
 import 'package:soo2_3edda/Features/Login%20and%20Registeration/presentation/view/widgets/custom_title_app_name.dart';
