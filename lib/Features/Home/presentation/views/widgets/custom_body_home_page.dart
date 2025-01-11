@@ -1,4 +1,7 @@
+import 'package:audioplayers/audioplayers.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:soo2_3edda/Features/Home/presentation/views/widgets/card_item.dart';
 import 'package:soo2_3edda/Features/Home/presentation/views/widgets/custom_app_bar_home_page.dart';
 import 'package:soo2_3edda/Features/Home/presentation/views/widgets/custom_search_field.dart';
@@ -131,14 +134,30 @@ class Favorite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        Center(
+        const Center(
           child: Text(
             'Favorite',
             style: TextStyle(fontSize: 30),
           ),
         ),
+        TextButton(
+            style: TextButton.styleFrom(
+                backgroundColor: Colors.teal,
+                fixedSize: const Size(150, 60),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20))),
+            onPressed: () {
+              AudioPlayer player = AudioPlayer();
+              player.play(AssetSource('sounds/item.ogg'));
+              FirebaseAuth.instance.signOut();
+              GoRouter.of(context).push('/LoginPage');
+            },
+            child: const Text(
+              'Sign Out',
+              style: TextStyle(color: Colors.white),
+            )),
       ],
     );
   }

@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:soo2_3edda/Features/Home/presentation/views/helpers/product_image.dart';
 import 'package:soo2_3edda/Features/Home/presentation/views/widgets/custom_app_bar_product_details_page.dart';
 
-
 class CustomBodyProductDetailsPage extends StatefulWidget {
   const CustomBodyProductDetailsPage({super.key, required this.id});
   final int id;
@@ -20,8 +19,8 @@ class _CustomBodyProductDetailsPageState
   @override
   void initState() {
     super.initState();
-    controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+    controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 300));
     animation = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller!, curve: Curves.easeInToLinear));
     controller!.forward();
@@ -52,22 +51,22 @@ class _CustomBodyProductDetailsPageState
       //  builder: null,
       builder: (context, child) => AnimatedOpacity(
         opacity: animation!.value,
-        duration: Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 500),
         child: child,
       ),
       child: InkWell(
-        borderRadius: BorderRadius.all(Radius.circular(13)),
+        borderRadius: const BorderRadius.all(Radius.circular(13)),
         onTap: () {},
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 10),
           child: Container(
             height: 40,
             width: 50,
             decoration: BoxDecoration(
               border: Border.all(
-                color: Color(0xffA1A3A6),
+                color: const Color(0xffA1A3A6),
               ),
-              borderRadius: BorderRadius.all(Radius.circular(13)),
+              borderRadius: const BorderRadius.all(Radius.circular(13)),
               // color: Theme.of(context).backgroundColor,
             ),
             child: Image.asset(image),
@@ -86,7 +85,7 @@ class _CustomBodyProductDetailsPageState
         return Container(
           padding:
               const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 0),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(40),
                 topRight: Radius.circular(40),
@@ -98,7 +97,7 @@ class _CustomBodyProductDetailsPageState
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Container(
                   alignment: Alignment.center,
                   child: Container(
@@ -111,7 +110,7 @@ class _CustomBodyProductDetailsPageState
                 ),
                 const SizedBox(height: 10),
                 Container(
-                  child: Row(
+                  child: const Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -119,7 +118,7 @@ class _CustomBodyProductDetailsPageState
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
-                          const Row(
+                          Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               TitleText(
@@ -151,15 +150,15 @@ class _CustomBodyProductDetailsPageState
                     ],
                   ),
                 ),
-                SizedBox(
+              const  SizedBox(
                   height: 20,
                 ),
                 _availableSize(),
-                SizedBox(
+               const SizedBox(
                   height: 20,
                 ),
                 _availableColor(),
-                SizedBox(
+              const  SizedBox(
                   height: 20,
                 ),
                 _description(),
@@ -175,11 +174,11 @@ class _CustomBodyProductDetailsPageState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        TitleText(
+       const TitleText(
           text: "Available Size",
           fontSize: 14,
         ),
-        SizedBox(height: 20),
+       const SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
@@ -195,21 +194,21 @@ class _CustomBodyProductDetailsPageState
 
   Widget _sizeWidget(String text, {bool isSelected = false}) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding:const EdgeInsets.all(10),
       decoration: BoxDecoration(
         border: Border.all(
-            color: Color(0xffa8a09b),
+            color:const Color(0xffa8a09b),
             style: !isSelected ? BorderStyle.solid : BorderStyle.none),
-        borderRadius: BorderRadius.all(Radius.circular(13)),
-        color: isSelected ? Color(0xffE65829) : Color(0XFFFFFFFF),
+        borderRadius:const BorderRadius.all(Radius.circular(13)),
+        color: isSelected ?const Color(0xffE65829) :const Color(0XFFFFFFFF),
       ),
       child: InkWell(
-        borderRadius: BorderRadius.all(Radius.circular(13)),
+        borderRadius:const BorderRadius.all(Radius.circular(13)),
         onTap: () {},
         child: TitleText(
           text: text,
           fontSize: 16,
-          color: isSelected ? Color(0XFFFFFFFF) : Color(0xff1d2635),
+          color: isSelected ?const Color(0XFFFFFFFF) :const Color(0xff1d2635),
         ),
       ),
     );
@@ -219,28 +218,28 @@ class _CustomBodyProductDetailsPageState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        TitleText(
+       const TitleText(
           text: "Available Size",
           fontSize: 14,
         ),
-        SizedBox(height: 20),
+       const SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             _colorWidget(Color(0xfffbba01), isSelected: true),
-            SizedBox(
+           const SizedBox(
               width: 30,
             ),
             _colorWidget(Color(0xff5F5F60)),
-            SizedBox(
+           const SizedBox(
               width: 30,
             ),
             _colorWidget(Color(0xff20262C)),
-            SizedBox(
+           const SizedBox(
               width: 30,
             ),
             _colorWidget(Color(0xffF72804)),
-            SizedBox(
+           const SizedBox(
               width: 30,
             ),
             _colorWidget(Color(0xff2890c8)),
@@ -268,11 +267,11 @@ class _CustomBodyProductDetailsPageState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        TitleText(
+       const TitleText(
           text: "Available Size",
           fontSize: 14,
         ),
-        SizedBox(height: 20),
+       const SizedBox(height: 20),
         Text(AppData.description),
       ],
     );
@@ -281,7 +280,7 @@ class _CustomBodyProductDetailsPageState
   FloatingActionButton _flotingButton() {
     return FloatingActionButton(
       onPressed: () {},
-      backgroundColor: Color(0xffE65829),
+      backgroundColor:const Color(0xffE65829),
       child: Icon(Icons.shopping_basket,
           color: Theme.of(context).floatingActionButtonTheme.backgroundColor),
     );
@@ -293,7 +292,7 @@ class _CustomBodyProductDetailsPageState
       floatingActionButton: _flotingButton(),
       body: SafeArea(
         child: Container(
-          decoration: BoxDecoration(
+          decoration:const BoxDecoration(
               gradient: LinearGradient(
             colors: [
               Color(0xfffbfbfb),

@@ -10,11 +10,12 @@ void main() async {
   await Firebase.initializeApp();
 
   runApp(ChangeNotifierProvider(
-    create: (context) => HeartProvider(),
-    child: Soo23Edda()));
+      create: (context) => HeartProvider(), child: const Soo23Edda()));
 }
 
 class Soo23Edda extends StatelessWidget {
+  const Soo23Edda({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
